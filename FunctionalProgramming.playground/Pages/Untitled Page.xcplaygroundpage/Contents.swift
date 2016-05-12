@@ -68,7 +68,7 @@ let parkRides = [
 //print(originalNames)
 
 
-//MARK: Declarative Programming Examples
+// MARK: Declarative Programming Examples
 
 // Filter Function
 func waitTimeIsShort(ride: Ride) -> Bool {
@@ -87,13 +87,22 @@ let rideNames = parkRides.map { $0.name }
 print(rideNames)
 print(rideNames.sort(<))
 
-//Reduce Function - 
+// Reduce Function - Calculate the average wait time for the rides
 let averageWaitTime = parkRides.reduce(0.0) { (average, ride) in average + (ride.waitTime/Double(parkRides.count)) }
 print(averageWaitTime)
 
 
 
 
+// MARK: Currying
+func rideTypeFilter(type: RideType)(fromRides rides: [Ride]) -> [Ride] {
+    return rides.filter { $0.types.contains(type) }
+}
 
+func createRideTypeFilter(type: RideType) -> [Ride] -> [Ride] {
+    return rideTypeFilter(type)
+}
 
+let kidRideFilter = createRideTypeFilter(.Kids)
+print(kidRideFilter(parkRides))
 
